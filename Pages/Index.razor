@@ -1,0 +1,34 @@
+﻿@page "/"
+@inject IUriHelper UriHelper
+
+<h1>Current culture: @System.Globalization.CultureInfo.CurrentCulture.Name</h1>
+<h1>Current UI culture: @System.Globalization.CultureInfo.CurrentUICulture.Name</h1>
+<p>@Resources.Message</p>
+
+<h3>Select your language</h3>
+<select @onchange="@OnSelected" id="culture-selector">
+    <option>Select...</option>
+    <option value="en-US">English</option>
+    <option value="fr-FR">Français</option>
+</select>
+
+<p>Enter a number (text)</p>
+<input type="text" @bind="textNumber" />
+<strong>@textNumber</strong>
+
+
+<p>Enter a number (number)</p>
+<input type="number" @bind-value="numberNumber" />
+<strong>@numberNumber</strong>
+
+@code {
+    double textNumber;
+    double numberNumber;
+
+    void OnSelected(UIChangeEventArgs e)
+    {
+        var redirect = new Uri(UriHelper.GetAbsoluteUri()).GetComponents(UriComponents.PathAndQuery, UriFormat.UriEscaped);
+        var query = $"?culture={Uri.EscapeDataString((string)e.Value)}&redirectUri={redirect}";
+        UriHelper.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+}
