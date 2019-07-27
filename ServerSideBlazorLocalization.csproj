@@ -3,7 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <AdditionalRestoreSources>$(AdditionalRestoreSources);https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json</AdditionalRestoreSources>
+    <RestoreAdditionalProjectSources>
+      https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json;
+      https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json
+    </RestoreAdditionalProjectSources >
   </PropertyGroup>
 
   <ItemGroup>
